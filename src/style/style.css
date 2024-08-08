@@ -1,62 +1,82 @@
-body{
-background-color: rgb(245, 187, 129);
+body {
+  background-color: rgb(245, 187, 129);
 }
-main{
-    display: flex;
-    justify-content: center;
-}
-
-.main_div{
-    width: 50%;
-    height: 100vh;
-    border-left: 3px solid gray;
-    border-right: 3px solid gray;
-    background-color: floralwhite;
-
+main {
+  display: flex;
+  justify-content: center;
 }
 
-.name_h1{
-    text-align: center;
-    font-size: 56px;
-    font-weight:600 ;
-    font-family: sans-serif;
-    color: rgb(18, 196, 18);
-    margin-top: 24px;
+.main_div {
+  width: 50%;
+  height: 100vh;
+  border-left: 3px solid gray;
+  border-right: 3px solid gray;
+  background-color: floralwhite;
 }
-.score_h2{
-    font-size: 32px;
-    text-align: center;
-    margin-top: 18px;
-    font-weight: 500;
-    color: gray;
-    
+
+.name_h1 {
+  text-align: center;
+  font-size: 56px;
+  font-weight: 600;
+  font-family: sans-serif;
+  color: rgb(18, 196, 18);
+  margin-top: 24px;
 }
-.canvas_div{
-    display: flex;
-    justify-content: center;
-    margin-top: 32px;
+.score_h2 {
+  font-size: 32px;
+  text-align: center;
+  margin-top: 18px;
+  font-weight: 500;
+  color: gray;
 }
-canvas{
-    border: 1px solid black;
+.canvas_div {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+  position: relative;
+}
+.start_pause {
+  position: absolute;
+  background-color: rgba(174, 172, 172, 0.807);
+  width: 401px;
+  height: 401px;
+}
+.start_pause div {
+  position: absolute;
+  font-size: 48px;
+  cursor: pointer;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+canvas {
+  border: 1px solid black;
+}
+.none {
+  display: none;
 }
 
 @media screen and (max-width: 890px) {
-    .main_div{
-        width: 65%;
-    }
+  .main_div {
+    width: 65%;
   }
-  @media screen and (max-width: 750px) {
-    .main_div{
-        width: 75%;
-    }
+}
+@media screen and (max-width: 750px) {
+  .main_div {
+    width: 75%;
   }
-  @media screen and (max-width: 650px) {
-    .main_div{
-        width: 85%;
-    }
+}
+@media screen and (max-width: 650px) {
+  .main_div {
+    width: 85%;
   }
-  @media screen and (max-width: 550px) {
-    .main_div{
-        width: 90%;
-    }
+}
+
+@media screen and (max-width: 450px) {
+  .name_h1 {
+    font-size: 46px;
   }
+  .score_h2 {
+    font-size: 24px;
+  }
+}
