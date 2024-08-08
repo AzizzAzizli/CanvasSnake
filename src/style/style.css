@@ -1,0 +1,41 @@
+body{
+background-color: rgb(245, 187, 129);
+}
+main{
+    display: flex;
+    justify-content: center;
+}
+
+.main_div{
+    width: 50%;
+    height: 100vh;
+    border-left: 3px solid gray;
+    border-right: 3px solid gray;
+    background-color: floralwhite;
+
+}
+
+.name_h1{
+    text-align: center;
+    font-size: 56px;
+    font-weight:600 ;
+    font-family: sans-serif;
+    color: rgb(18, 196, 18);
+    margin-top: 24px;
+}
+.score_h2{
+    font-size: 32px;
+    text-align: center;
+    margin-top: 18px;
+    font-weight: 500;
+    color: gray;
+    
+}
+.canvas_div{
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+}
+canvas{
+    border: 1px solid black;
+}
