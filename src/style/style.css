@@ -39,3 +39,24 @@ main{
 canvas{
     border: 1px solid black;
 }
+
+@media screen and (max-width: 890px) {
+    .main_div{
+        width: 65%;
+    }
+  }
+  @media screen and (max-width: 750px) {
+    .main_div{
+        width: 75%;
+    }
+  }
+  @media screen and (max-width: 650px) {
+    .main_div{
+        width: 85%;
+    }
+  }
+  @media screen and (max-width: 550px) {
+    .main_div{
+        width: 90%;
+    }
+  }

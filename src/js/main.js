@@ -17,6 +17,9 @@ let body = [];
 let bodySize = 2;
 let startBodySize = 2;
 
+
+
+
 function Game() {
   ctx.fillStyle = "lime";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -73,5 +76,7 @@ function ketPush(e) {
   }
 }
 
-const interval = setInterval(Game, 500);
-document.addEventListener("keydown", ketPush);
+
+
+// const interval = setInterval(Game, 500);
+// document.addEventListener("keydown", ketPush);
