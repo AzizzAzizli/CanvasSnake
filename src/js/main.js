@@ -3,6 +3,8 @@ const score = document.querySelector(".score");
 const ctx = canvas.getContext("2d");
 const startBtn = document.querySelector(".startBtn");
 const startDiv = document.querySelector(".start_pause");
+const endScore = document.querySelector("#endScore");
+
 let gameSize = 20;
 
 let x = gameSize - 10;
@@ -18,31 +20,42 @@ let body = [];
 let bodySize = 2;
 let startBodySize = 2;
 
-// function initializeGame() {
+let interval;
+let isStarted = false;
 
-//   x = Math.floor(gameSize / 2);
-//   y = Math.floor(gameSize / 2);
+let yourScore = 0;
 
+function initializeGame() {
+  yourScore = 0;
+  ctx.fillStyle = "lime";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  x = Math.floor(gameSize / 2);
+  y = Math.floor(gameSize / 2);
 
-//   body = [
-//     { x: x - 1, y: y },
-//     { x: x - 2, y: y },
-//   ];
+  body = [
+    { x: x - 2, y: y },
+    { x: x - 1, y: y },
+    { x: x, y: y },
+  ];
 
- 
-//   do {
-//     eatX = Math.floor(Math.random() * gameSize);
-//     eatY = Math.floor(Math.random() * gameSize);
-//   } while (body.some((el) => el.x === eatX && el.y === eatY));
+  ctx.fillStyle = "black";
+  for (let i = 0; i < body.length; i++) {
+    ctx.fillRect(
+      body[i].x * gameSize,
+      body[i].y * gameSize,
+      gameSize - 2,
+      gameSize - 2
+    );
+  }
+  ctx.fillStyle = "red";
+  do {
+    eatX = Math.floor(Math.random() * gameSize);
+    eatY = Math.floor(Math.random() * gameSize);
+  } while (body.some((el) => el.x === eatX && el.y === eatY));
+  ctx.fillRect(eatX * gameSize, eatY * gameSize, gameSize - 2, gameSize - 2);
+}
 
-// }
-
-// startBtn.addEventListener("click", () => {
-//   initializeGame();
-//   dx = 1;
-//   startDiv.classList.add("none");
-// });
-
+initializeGame();
 function screenOptimization() {
   let currentScreen = window.screen.width;
 
@@ -50,15 +63,23 @@ function screenOptimization() {
 
   if (currentScreen <= 550) {
     gameSize = 19;
+    startDiv.style.width = `${Math.pow(gameSize, 2) + 1}px `;
+    startDiv.style.height = `${Math.pow(gameSize, 2) + 1}px `;
   }
   if (currentScreen <= 450) {
     gameSize = 17;
+    startDiv.style.width = `${Math.pow(gameSize, 2) + 1}px `;
+    startDiv.style.height = `${Math.pow(gameSize, 2) + 1}px `;
   }
   if (currentScreen <= 370) {
     gameSize = 16;
+    startDiv.style.width = `${Math.pow(gameSize, 2) + 1}px `;
+    startDiv.style.height = `${Math.pow(gameSize, 2) + 1}px `;
   }
   if (currentScreen <= 330) {
     gameSize = 15;
+    startDiv.style.width = `${Math.pow(gameSize, 2) + 1}px `;
+    startDiv.style.height = `${Math.pow(gameSize, 2) + 1}px `;
   }
   canvas.width = Math.pow(gameSize, 2);
   canvas.height = Math.pow(gameSize, 2);
@@ -67,8 +88,6 @@ function screenOptimization() {
 window.onload = screenOptimization();
 
 window.addEventListener("resize", screenOptimization);
-
-const interval = setInterval(Game, 100);
 
 function Game() {
   ctx.fillStyle = "lime";
@@ -87,12 +106,16 @@ function Game() {
     );
 
     if (body[i].x === x && body[i].y === y) {
+      console.log(body, x, y);
+
       bodySize = startBodySize;
-      // startDiv.classList.remove("none");
-      // startBtn.innerText = "Try Again";
-      // // clearInterval(interval)
-      // dx = 0;
-      // dy = 0;
+      startDiv.classList.remove("none");
+      startBtn.innerText = "Try Again";
+      isStarted = false;
+      dx = 0;
+      dy = 0;
+      endScore.innerText = `Your score: ${yourScore}`;
+      clearInterval(interval);
     }
   }
   while (body.length > bodySize) {
@@ -103,9 +126,8 @@ function Game() {
   ctx.fillRect(eatX * gameSize, eatY * gameSize, gameSize - 2, gameSize - 2);
   if (eatX === x && eatY === y) {
     bodySize++;
+    yourScore = (bodySize - startBodySize) * 5;
 
-    // eatX = Math.floor(Math.random() * gameSize);
-    // eatY = Math.floor(Math.random() * gameSize);
     do {
       eatX = Math.floor(Math.random() * gameSize);
       eatY = Math.floor(Math.random() * gameSize);
@@ -125,7 +147,10 @@ function Game() {
   body.push({ x: x, y: y });
 }
 
-function ketPush(e) {
+function keyPush(e) {
+  if (!isStarted) {
+    return;
+  }
   if (e.keyCode === 37 && dx !== 1) {
     dx = -1;
     dy = 0;
@@ -140,5 +165,15 @@ function ketPush(e) {
     dy = 1;
   }
 }
+function StartGame() {
+  dx = 1;
+  dy = 0;
+  isStarted = true;
+  initializeGame()
+  interval = setInterval(Game, 100);
+ 
+  startDiv.classList.add("none");
+}
+startBtn.addEventListener("click", StartGame);
 
-document.addEventListener("keydown", ketPush);
+document.addEventListener("keydown", keyPush);
