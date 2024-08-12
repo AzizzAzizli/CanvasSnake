@@ -25,6 +25,10 @@ let isStarted = false;
 
 let yourScore = 0;
 
+let movementCompleted = true;
+
+let gamePaused = false;
+
 function initializeGame() {
   yourScore = 0;
   ctx.fillStyle = "lime";
@@ -59,7 +63,7 @@ initializeGame();
 function screenOptimization() {
   let currentScreen = window.screen.width;
 
-  // console.log(currentScreen);
+  console.log(currentScreen);
 
   if (currentScreen <= 550) {
     gameSize = 19;
@@ -83,15 +87,31 @@ function screenOptimization() {
   }
   canvas.width = Math.pow(gameSize, 2);
   canvas.height = Math.pow(gameSize, 2);
+
+  ctx.fillStyle = "lime";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 window.onload = screenOptimization();
 
 window.addEventListener("resize", screenOptimization);
 
+function clearOldTail() {
+  if (body.length > bodySize + 2) {
+    let tail = body.shift();
+    ctx.fillStyle = "lime";
+    ctx.fillRect(
+      tail.x * gameSize,
+      tail.y * gameSize,
+      gameSize - 2,
+      gameSize - 2
+    );
+  }
+}
+
 function Game() {
-  ctx.fillStyle = "lime";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  // ctx.fillStyle = "lime";
+  // ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   x += dx;
   y += dy;
@@ -118,14 +138,16 @@ function Game() {
       clearInterval(interval);
     }
   }
-  while (body.length > bodySize) {
-    body.shift();
-  }
+
+  // while (body.length > bodySize) {
+  //   body.shift();
+  // }
 
   ctx.fillStyle = "red";
   ctx.fillRect(eatX * gameSize, eatY * gameSize, gameSize - 2, gameSize - 2);
   if (eatX === x && eatY === y) {
     bodySize++;
+    score.innerHTML = `${(bodySize - startBodySize) * 5}`;
     yourScore = (bodySize - startBodySize) * 5;
 
     do {
@@ -143,12 +165,16 @@ function Game() {
   } else if (y > gameSize - 1) {
     y = 0;
   }
-  score.innerHTML = `${(bodySize - startBodySize) * 5}`;
+
   body.push({ x: x, y: y });
+
+  clearOldTail();
+
+  movementCompleted = true;
 }
 
 function keyPush(e) {
-  if (!isStarted) {
+  if (!isStarted || !movementCompleted) {
     return;
   }
   if (e.keyCode === 37 && dx !== 1) {
@@ -164,16 +190,28 @@ function keyPush(e) {
     dx = 0;
     dy = 1;
   }
+  movementCompleted = false;
 }
 function StartGame() {
   dx = 1;
   dy = 0;
   isStarted = true;
-  initializeGame()
+  initializeGame();
   interval = setInterval(Game, 100);
- 
+
   startDiv.classList.add("none");
 }
 startBtn.addEventListener("click", StartGame);
-
+canvas.addEventListener("click", () => {
+  if (gamePaused) {
+    interval = setInterval(Game, 100);
+    gamePaused = false;
+    return;
+  }
+  if (!gamePaused) {
+    clearInterval(interval);
+    gamePaused = true;
+    return;
+  }
+});
 document.addEventListener("keydown", keyPush);
