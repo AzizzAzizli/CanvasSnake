@@ -43,7 +43,7 @@ main {
 }
 .start_pause div {
   position: absolute;
-  font-size: 42px;
+  font-size: 48px;
   cursor: pointer;
   top: 50%;
   left: 50%;
@@ -99,12 +99,16 @@ canvas {
   .main_div {
     width: 85%;
   }
+  .start_pause div{
+    font-size: 38px;
+  }
 }
 
 @media screen and (max-width: 450px) {
   .name_h1 {
     font-size: 46px;
   }
+
   .score_h2 {
     font-size: 24px;
   }

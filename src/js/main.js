@@ -200,14 +200,14 @@ function StartGame() {
   dy = 0;
   isStarted = true;
   initializeGame();
-  interval = setInterval(Game, 100);
+  interval = setInterval(Game, 80);
 
   startDiv.classList.add("none");
 }
 startBtn.addEventListener("click", StartGame);
 canvas.addEventListener("click", () => {
   if (gamePaused) {
-    interval = setInterval(Game, 100);
+    interval = setInterval(Game, 80);
     gamePaused = false;
     return;
   }
