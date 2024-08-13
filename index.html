@@ -10,7 +10,7 @@
   <body>
     <main>
       <div class="main_div">
-        <div><h1 class="name_h1">Snake</h1></div>
+        <!-- <div style="position: fixed; "><h1 class="name_h1">Snake</h1></div> -->
         <div>
           <h2 class="score_h2">Your Score: <span class="score">0</span></h2>
         </div>
@@ -22,6 +22,18 @@
             </div>
           </div>
           <canvas id="canvas" width="400" height="400"></canvas>
+        </div>
+        <div class="arrowDiv ">
+          <div class="firstArrow">
+            <div data-keyCode="38" class="arrowBtn"><img src="./src/icons/arrowUp.svg" alt="arrow-icon" /></div>
+          </div>
+          <div class="secondArrow">
+            <div data-keyCode="37" class="arrowBtn" >  <img src="./src/icons/arrowLeft.svg" alt="arrow-icon" /></div>
+            <div data-keyCode="39" class="arrowBtn"><img src="./src/icons/arrowRight.svg" alt="arrow-icon" /></div>
+          </div>
+          <div class="thirdArrow">
+            <div data-keyCode="40" class="arrowBtn"><img src="./src/icons/arrowDown.svg" alt="arrow-icon" /></div>
+          </div>
         </div>
       </div>
     </main>

@@ -4,6 +4,7 @@ const ctx = canvas.getContext("2d");
 const startBtn = document.querySelector(".startBtn");
 const startDiv = document.querySelector(".start_pause");
 const endScore = document.querySelector("#endScore");
+const arrows = document.querySelectorAll(".arrowBtn");
 
 let gameSize = 20;
 
@@ -63,7 +64,7 @@ initializeGame();
 function screenOptimization() {
   let currentScreen = window.screen.width;
 
-  console.log(currentScreen);
+  // console.log(currentScreen);
 
   if (currentScreen <= 550) {
     gameSize = 19;
@@ -126,7 +127,7 @@ function Game() {
     );
 
     if (body[i].x === x && body[i].y === y) {
-      console.log(body, x, y);
+      // console.log(body, x, y);
 
       bodySize = startBodySize;
       startDiv.classList.remove("none");
@@ -174,6 +175,8 @@ function Game() {
 }
 
 function keyPush(e) {
+  // console.log(e);
+
   if (!isStarted || !movementCompleted) {
     return;
   }
@@ -215,3 +218,13 @@ canvas.addEventListener("click", () => {
   }
 });
 document.addEventListener("keydown", keyPush);
+
+arrows.forEach((arrow, i) => {
+  arrow.addEventListener("click", () => {
+    // console.log(arrow.dataset.keycode);
+    let e = {
+      keyCode: +arrow.dataset.keycode,
+    };
+    keyPush(e);
+  });
+});
